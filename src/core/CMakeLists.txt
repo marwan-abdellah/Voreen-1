@@ -371,6 +371,9 @@ SET(VRN_CORE_HEADERS
     ../../include/voreen/core/datastructures/volume/operators/volumeoperatorswapendianness.h
     ../../include/voreen/core/datastructures/volume/operators/volumeoperatortranspose.h 
     ../../include/voreen/core/datastructures/volume/operators/volumeoperatorvorticity.h 
+    ../../include/voreen/core/datastructures/volume/operators/volumeoperatorfft.h
+    ../../include/voreen/core/datastructures/volume/operators/volumeoperatorfftreal.h 
+    ../../include/voreen/core/datastructures/volume/operators/volumeoperatorfftimaginary.h 
 
     ../../include/voreen/core/interaction/booltoggleinteractionhandler.h
     ../../include/voreen/core/interaction/buttonpressinteractionhandler.h 

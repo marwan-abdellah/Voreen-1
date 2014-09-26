@@ -105,26 +105,37 @@ VolumeBase* VolumeURLProperty::getVolume() const {
 
 void VolumeURLProperty::loadVolume() throw (tgt::FileException, std::bad_alloc){
 
+    // String representing the URL of the volume.
     std::string url = get();
     if (url.empty()) {
         LWARNING("loadVolume(): empty URL");
         return;
     }
 
+    // Progress bar for the updates.
     ProgressBar* progressBar = getProgressBar();
     if (progressBar) {
         progressBar->setTitle("Loading volume");
         progressBar->setProgressMessage("Loading volume ...");
     }
+
+    // Serializer
     VolumeSerializerPopulator serializerPopulator(progressBar);
+
+    // Load the volume in a volume list.
     VolumeList* volumeList = serializerPopulator.getVolumeSerializer()->read(url);
 
     if (progressBar)
         progressBar->hide();
 
+    // If some data was loaded, then process it.
     if (volumeList && !volumeList->empty()) {
+
+        // This is a pointer to the volume.
         VolumeBase* handle = volumeList->first();
         tgtAssert(handle, "No handle");
+
+        // Convert the volume from VolumeBase to Volume.
         setVolume(static_cast<Volume*>(handle));
 
         // delete superfluous volumes

@@ -42,6 +42,16 @@ protected:
     void fillOrientedBox(VolumeRAM_UInt8* vds, tgt::vec3 center, tgt::vec3 dir, float lengthA, float lengthB, float yStart, float yEnd, uint8_t value);
     void fillCone(VolumeRAM_UInt8* vds, tgt::vec3 center, tgt::vec3 dir, float length, float yStart, float yEnd, float topRadius, float bottomRadius, uint8_t value);
 
+    /// Float Volume
+    void fillPlane(VolumeRAM_Float* vds, tgt::vec3 center, tgt::vec3 normal, uint8_t value);
+    void fillCircle(VolumeRAM_Float* vds, tgt::vec3 center, float radius, uint8_t value);
+    void fillOrientedCircle(VolumeRAM_Float* vds, tgt::vec3 center, tgt::vec3 normal, float radius, uint8_t value);
+    void fillSphere(VolumeRAM_Float* vds, tgt::vec3 center, float radius, uint8_t value);
+    void fillEllipsoid(VolumeRAM_Float* vds, tgt::vec3 center, tgt::vec3 radius, uint8_t value);
+    void fillBox(VolumeRAM_Float* vds, tgt::ivec3 start, tgt::ivec3 end, uint8_t value);
+    void fillOrientedBox(VolumeRAM_Float* vds, tgt::vec3 center, tgt::vec3 dir, float lengthA, float lengthB, float yStart, float yEnd, uint8_t value);
+    void fillCone(VolumeRAM_Float* vds, tgt::vec3 center, tgt::vec3 dir, float length, float yStart, float yEnd, float topRadius, float bottomRadius, uint8_t value);
+
     void applyPerturbation(VolumeRAM* vds, tgt::ivec3 dimensions, tgt::vec3 frequency, tgt::vec3 amplitude);
 
     tgt::vec3 getRandVec() const;

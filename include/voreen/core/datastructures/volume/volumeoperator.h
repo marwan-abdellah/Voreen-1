@@ -41,6 +41,11 @@
 
 namespace voreen {
 
+typedef struct {
+    Volume* real;
+    Volume* imaginary;
+} ComplexVolume;
+
 /**
  * Thrown by a VolumeOperator is the type of the passed Volume is not supported.
  */
@@ -207,6 +212,7 @@ void UniversalBinaryVolumeOperatorGeneric<BASE_TYPE>::addInstance(BASE_TYPE* ins
     univ_type::addInstance(new type<Tensor2<float> >());
 
 #define APPLY_OP(vh, ...) get(vh)->apply(vh, ## __VA_ARGS__)
+#define APPLY_COMPLEX_OP(vh, ...) get(vh)->applyComplex(vh, ## __VA_ARGS__)
 #define APPLY_B_OP(vh1, vh2, ...) get(vh1, vh2)->apply(vh1, vh2, ## __VA_ARGS__)
 
 /**

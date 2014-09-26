@@ -136,10 +136,14 @@
 #include "processors/volume/volumemorphology.h"
 #include "processors/volume/volumeresample.h"
 #include "processors/volume/volumecreate.h"
+#include "processors/volume/volumefloatcreate.h"
 #include "processors/volume/volumecubify.h"
 #include "processors/volume/volumehalfsample.h"
 #include "processors/volume/volumemirror.h"
 #include "processors/volume/volumevorticity.h"
+#include "processors/volume/volumecreatefftspectrum.h"
+#include "processors/volume/volumeconvertfftreal.h"
+#include "processors/volume/volumeconvertfftimaginary.h"
 
 
 ///
@@ -260,6 +264,7 @@ BaseModule::BaseModule(const std::string& modulePath) : VoreenModule(modulePath)
     registerSerializableType(new VolumeCombine());
     registerSerializableType(new VolumeComposer());
     registerSerializableType(new VolumeCreate());
+    registerSerializableType(new VolumeFloatCreate());
     registerSerializableType(new VolumeCrop());
     registerSerializableType(new VolumeCubify());
     registerSerializableType(new VolumeDecomposer());
@@ -278,6 +283,10 @@ BaseModule::BaseModule(const std::string& modulePath) : VoreenModule(modulePath)
     registerSerializableType(new VolumeTransformation());
     registerSerializableType(new VolumeOffset());
     registerSerializableType(new VolumeVorticity());
+    registerSerializableType(new VolumeCreateFFTSpectrum());
+    registerSerializableType(new VolumeConvertFFTReal());
+    registerSerializableType(new VolumeConvertFFTImaginary());
+
 
     // volume readers/writers
     registerVolumeReader(new AnalyzeVolumeReader());

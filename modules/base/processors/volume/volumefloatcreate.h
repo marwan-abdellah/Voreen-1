@@ -23,8 +23,8 @@
  *                                                                                 *
  ***********************************************************************************/
 
-#ifndef VRN_VOLUMECREATE_H
-#define VRN_VOLUMECREATE_H
+#ifndef VRN_VOLUMEFLOATCREATE_H
+#define VRN_VOLUMEFLOATCREATE_H
 
 #include "volumecreatebase.h"
 
@@ -37,47 +37,44 @@
 
 namespace voreen {
 
-class VRN_CORE_API VolumeCreate : public VolumeCreateBase {
+class VRN_CORE_API VolumeFloatCreate : public VolumeCreateBase {
 public:
-    VolumeCreate();
-    Processor* create() const { return new VolumeCreate; }
+    VolumeFloatCreate();
+    Processor* create() const { return new VolumeFloatCreate; }
 
-    std::string getClassName() const  { return "VolumeCreate";      }
+    std::string getClassName() const  { return "VolumeFloatCreate";      }
     std::string getCategory() const   { return "Volume Processing"; }
     CodeState getCodeState() const    { return CODE_STATE_STABLE;   }
     bool usesExpensiveComputation() const { return true; }
 
 protected:
     virtual void setDescriptions() {
-        setDescription("Generates an 8-bit dataset with cubic dimensions.");
+        setDescription("Generates an 32-bit dataset with cubic dimensions.");
     }
 
     void process();
 
 private:
-    void createCornell(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createCube(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createBlobs(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createBlobs2(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createBlobs3(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createSphere(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createDoubleSphere(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createTorus(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createDoubleTorus(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createDoublePartialTorus(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createBumpySphere(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
+    void createCornell(const tgt::ivec3& dimensions, VolumeRAM_Float *target);
+    void createCube(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createBlobs(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createBlobs2(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createBlobs3(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createSphere(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createDoubleSphere(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createTorus(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createDoubleTorus(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createDoublePartialTorus(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createBumpySphere(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
     void createSphereCoord(const tgt::ivec3& dimensions, VolumeRAM_4xUInt8* target);
-    void createSynth(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createCloud(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createAOTestBox(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createShadowTestVolume(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createAorticArch(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createRandomShapes(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createDECT(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-    void createStack(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target);
-
-    // Float volume
-    void createFloatSphere(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createSynth(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createCloud(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createAOTestBox(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createShadowTestVolume(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createAorticArch(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createRandomShapes(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createDECT(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
+    void createStack(const tgt::ivec3& dimensions, VolumeRAM_Float* target);
 
     VolumePort outport_;
     unsigned int currentSeed_;

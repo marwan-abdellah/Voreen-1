@@ -323,6 +323,8 @@ ELSE()
     MESSAGE(FATAL_ERROR "Boost not found!")
 ENDIF()
 
+INCLUDE(Find_FFTW)
+
 # tinyxml
 LIST(APPEND VRN_EXTERNAL_LICENSE_FILES "${VRN_HOME}/ext/tinyxml/license.txt")
     

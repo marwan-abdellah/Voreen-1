@@ -92,6 +92,7 @@ SET(MOD_CORE_SOURCES
     ${MOD_DIR}/processors/volume/volumecombine.cpp
     ${MOD_DIR}/processors/volume/volumecomposer.cpp
     ${MOD_DIR}/processors/volume/volumecreate.cpp
+    ${MOD_DIR}/processors/volume/volumefloatcreate.cpp
     ${MOD_DIR}/processors/volume/volumecreatebase.cpp
     ${MOD_DIR}/processors/volume/volumecrop.cpp
     ${MOD_DIR}/processors/volume/volumecubify.cpp
@@ -111,6 +112,9 @@ SET(MOD_CORE_SOURCES
     ${MOD_DIR}/processors/volume/volumetransformation.cpp
     ${MOD_DIR}/processors/volume/volumeoffset.cpp
     ${MOD_DIR}/processors/volume/volumevorticity.cpp
+    ${MOD_DIR}/processors/volume/volumecreatefftspectrum.cpp
+    ${MOD_DIR}/processors/volume/volumeconvertfftreal.cpp
+    ${MOD_DIR}/processors/volume/volumeconvertfftimaginary.cpp
 
     # Volume readers/writers sources
     ${MOD_DIR}/io/analyzevolumereader.cpp
@@ -216,6 +220,7 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/processors/volume/volumecombine.h
     ${MOD_DIR}/processors/volume/volumecomposer.h
     ${MOD_DIR}/processors/volume/volumecreate.h
+    ${MOD_DIR}/processors/volume/volumefloatcreate.h
     ${MOD_DIR}/processors/volume/volumecreatebase.h
     ${MOD_DIR}/processors/volume/volumecrop.h
     ${MOD_DIR}/processors/volume/volumecubify.h
@@ -235,6 +240,11 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/processors/volume/volumetransformation.h
     ${MOD_DIR}/processors/volume/volumeoffset.h 
     ${MOD_DIR}/processors/volume/volumevorticity.h
+    ${MOD_DIR}/processors/volume/volumecreatefftspectrum.h
+    ${MOD_DIR}/processors/volume/volumeconvertfftreal.h
+    ${MOD_DIR}/processors/volume/volumeconvertfftimaginary.h
+
+
 
     # Volume readers/writers headers
     ${MOD_DIR}/io/analyzevolumereader.h

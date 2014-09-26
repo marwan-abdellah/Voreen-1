@@ -23,7 +23,7 @@
  *                                                                                 *
  ***********************************************************************************/
 
-#include "volumecreate.h"
+#include "volumefloatcreate.h"
 #include "voreen/core/datastructures/volume/volumeram.h"
 #include "voreen/core/datastructures/volume/volume.h"
 #include "voreen/core/datastructures//volume/volumeoperator.h"
@@ -37,9 +37,9 @@ using tgt::vec3;
 
 namespace voreen {
 
-const std::string VolumeCreate::loggerCat_("voreen.VolumeCreate");
+const std::string VolumeFloatCreate::loggerCat_("voreen.VolumeFloatCreate");
 
-VolumeCreate::VolumeCreate()
+VolumeFloatCreate::VolumeFloatCreate()
     : VolumeCreateBase()
     , outport_(Port::OUTPORT, "volumehandle.output", "Volume Output", false)
     , currentSeed_(0)
@@ -58,7 +58,6 @@ VolumeCreate::VolumeCreate()
     operation_.addOption("blobs2",          "Blobs2");
     operation_.addOption("blobs3",          "Blobs3");
     operation_.addOption("sphere",          "Sphere");
-    operation_.addOption("floatsphere",     "FloatSphere");
     operation_.addOption("torus",           "Torus");
     operation_.addOption("doubletorus",     "Doubletorus");
     operation_.addOption("doublepartialtorus","Doubletorus (partial)");
@@ -84,14 +83,14 @@ VolumeCreate::VolumeCreate()
     addProperty(numSubdivisions_);
 }
 
-void VolumeCreate::process() {
+void VolumeFloatCreate::process() {
     VolumeRAM* outputVolume = 0;
 
     std::string operation = operation_.get();
 
     tgt::ivec3 dimensions(dimension_.get());
 
-    VolumeRAM_UInt8* target = new VolumeRAM_UInt8(dimensions);
+    VolumeRAM_Float* target = new VolumeRAM_Float(dimensions);
 
     outputVolume = target;
 
@@ -171,7 +170,7 @@ void VolumeCreate::process() {
     outport_.setData(vh);
 }
 
-void VolumeCreate::createCornell(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createCornell(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     vec3 center = dimensions / 2;
 
     int size = dimensions.x;
@@ -244,7 +243,7 @@ void VolumeCreate::createCornell(const tgt::ivec3& dimensions, VolumeRAM_UInt8* 
         static_cast<float>(border+thickness+(innerSize*0.8f))), static_cast<float>(innerSize/6), sphere);
 }
 
-void VolumeCreate::createCube(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createCube(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     vec3 center;
     center = dimensions / 2;
 
@@ -260,7 +259,7 @@ void VolumeCreate::createCube(const tgt::ivec3& dimensions, VolumeRAM_UInt8* tar
     fillBox(target, tgt::ivec3(border, border, border), tgt::ivec3(size-border, border+thickness, size-border), white);
 }
 
-void VolumeCreate::createBlobs(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target ) {
+void VolumeFloatCreate::createBlobs(const tgt::ivec3& dimensions, VolumeRAM_Float* target ) {
     tgt::vec3 center = dimensions / 2;
 
     LINFO("Generating blobs dataset with dimensions: " << dimensions);
@@ -294,7 +293,7 @@ void VolumeCreate::createBlobs(const tgt::ivec3& dimensions, VolumeRAM_UInt8* ta
     }
 }
 
-void VolumeCreate::createBlobs2(const tgt::ivec3 &dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createBlobs2(const tgt::ivec3 &dimensions, VolumeRAM_Float* target) {
     tgt::vec3 center = dimensions / 2;
 
     LINFO("Generating blobs2 dataset with dimensions: " << dimensions);
@@ -327,7 +326,7 @@ void VolumeCreate::createBlobs2(const tgt::ivec3 &dimensions, VolumeRAM_UInt8* t
     }
 }
 
-void VolumeCreate::createBlobs3(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createBlobs3(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     tgt::vec3 center = dimensions / 2;
 
     LINFO("Generating blobs3 dataset with dimensions: " << dimensions);
@@ -361,7 +360,7 @@ void VolumeCreate::createBlobs3(const tgt::ivec3& dimensions, VolumeRAM_UInt8* t
     }
 }
 
-void VolumeCreate::createSphere(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createSphere(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     tgt::vec3 center = dimensions / 2;
 
     LINFO("Generating sphere dataset with dimensions: " << dimensions);
@@ -379,7 +378,7 @@ void VolumeCreate::createSphere(const tgt::ivec3& dimensions, VolumeRAM_UInt8* t
     }
 }
 
-void VolumeCreate::createDoubleSphere(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createDoubleSphere(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     tgt::vec3 center = dimensions / 2;
     tgt::vec3 center2 = center;
     center2.x *= 1.2;
@@ -406,7 +405,7 @@ void VolumeCreate::createDoubleSphere(const tgt::ivec3& dimensions, VolumeRAM_UI
     }
 }
 
-void VolumeCreate::createTorus(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createTorus(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     tgt::vec3 center = dimensions / 2;
     tgt::vec3 center2 = center;
 
@@ -427,7 +426,7 @@ void VolumeCreate::createTorus(const tgt::ivec3& dimensions, VolumeRAM_UInt8* ta
     }
 }
 
-void VolumeCreate::createDoubleTorus(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createDoubleTorus(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     tgt::vec3 center = dimensions / 2;
     tgt::vec3 center2 = center;
 
@@ -453,7 +452,7 @@ void VolumeCreate::createDoubleTorus(const tgt::ivec3& dimensions, VolumeRAM_UIn
     }
 }
 
-void VolumeCreate::createDoublePartialTorus(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createDoublePartialTorus(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     tgt::vec3 center = dimensions / 2;
     tgt::vec3 center2 = center;
 
@@ -492,7 +491,7 @@ void VolumeCreate::createDoublePartialTorus(const tgt::ivec3& dimensions, Volume
     }
 }
 
-void VolumeCreate::createBumpySphere(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createBumpySphere(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     tgt::vec3 center = dimensions / 2;
 
     LINFO("Generating bumpysphere dataset with dimensions: " << dimensions);
@@ -532,7 +531,7 @@ void VolumeCreate::createBumpySphere(const tgt::ivec3& dimensions, VolumeRAM_UIn
     }
 }
 
-void VolumeCreate::createSphereCoord(const tgt::ivec3& dimensions, VolumeRAM_4xUInt8* target) {
+void VolumeFloatCreate::createSphereCoord(const tgt::ivec3& dimensions, VolumeRAM_4xUInt8* target) {
     //the same sphere but as 32bit DS with natural param.
     tgt::vec3 center = dimensions / 2;
 
@@ -568,7 +567,7 @@ void VolumeCreate::createSphereCoord(const tgt::ivec3& dimensions, VolumeRAM_4xU
     }
 }
 
-void VolumeCreate::createSynth(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createSynth(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     vec3 center;
     center = dimensions / 2;
 
@@ -585,7 +584,7 @@ void VolumeCreate::createSynth(const tgt::ivec3& dimensions, VolumeRAM_UInt8* ta
     }
 }
 
-void VolumeCreate::createCloud(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createCloud(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     // TODO: this might be a dirty hack to just remove this line
     // there was an out of bounds error
     //dimensions.x *= 2;
@@ -615,7 +614,7 @@ void VolumeCreate::createCloud(const tgt::ivec3& dimensions, VolumeRAM_UInt8* ta
     applyPerturbation(target, dimensions, highFrequency, lowAmplitude);
 }
 
-void VolumeCreate::createAOTestBox(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createAOTestBox(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     LINFO("Generating aotest");
 
     fillBox(target, tgt::ivec3(0,0,0), dimensions, 0);
@@ -626,10 +625,10 @@ void VolumeCreate::createAOTestBox(const tgt::ivec3& dimensions, VolumeRAM_UInt8
     }
 }
 
-void VolumeCreate::createShadowTestVolume(const tgt::ivec3& /*dimensions*/, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createShadowTestVolume(const tgt::ivec3& /*dimensions*/, VolumeRAM_Float* target) {
     LINFO("Generating shadowTestVolume");
     delete target;
-    target = new VolumeRAM_UInt8(tgt::ivec3(64,64,64));
+    target = new VolumeRAM_Float(tgt::ivec3(64,64,64));
 
     fillBox(target, tgt::ivec3(0,0,0), tgt::ivec3(64,64,64), 0);
 
@@ -640,7 +639,7 @@ void VolumeCreate::createShadowTestVolume(const tgt::ivec3& /*dimensions*/, Volu
     fillBox(target, tgt::ivec3(25,25,46), tgt::ivec3(39,39,47), 25);
 }
 
-void VolumeCreate::createAorticArch(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createAorticArch(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     // --------------------
     // ------Settings------
     // --------------------
@@ -748,7 +747,7 @@ void VolumeCreate::createAorticArch(const tgt::ivec3& dimensions, VolumeRAM_UInt
     if (plaqueEnable) {
         // TODO what to do with the pet volume? Removed until solution is found
         /*
-        VolumeRAM_UInt8* petTarget = new VolumeRAM_UInt8(dimensions);
+        VolumeRAM_Float* petTarget = new VolumeRAM_Float(dimensions);
         fillBox(petTarget, ivec3(0,0,0), dimensions, 0);
 
         // Draw pet spot
@@ -763,7 +762,7 @@ void VolumeCreate::createAorticArch(const tgt::ivec3& dimensions, VolumeRAM_UInt
     }
 }
 
-void VolumeCreate::createRandomShapes(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createRandomShapes(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     int s = dimensions.x;
     //int thickness = s / 15;
     int thickness = s / 30;
@@ -898,11 +897,11 @@ void VolumeCreate::createRandomShapes(const tgt::ivec3& dimensions, VolumeRAM_UI
     }
 }
 
-void VolumeCreate::createDECT(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createDECT(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     fillBox(target, tgt::ivec3(0,0,0), dimensions, 0);
 }
 
-void VolumeCreate::createStack(const tgt::ivec3& dimensions, VolumeRAM_UInt8* target) {
+void VolumeFloatCreate::createStack(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
     int previousHeight = 0;
     int height;
     for (int i = 1; i <= numSubdivisions_.get(); ++i) {
@@ -910,26 +909,6 @@ void VolumeCreate::createStack(const tgt::ivec3& dimensions, VolumeRAM_UInt8* ta
         uint8_t color = static_cast<uint8_t>(static_cast<float>(i) / static_cast<float>(numSubdivisions_.get()) * 255.f);
         fillBox(target, tgt::ivec3(0,0,previousHeight), tgt::ivec3(dimensions.x, dimensions.y, height), color);
         previousHeight = height;
-    }
-}
-
-void VolumeCreate::createFloatSphere(const tgt::ivec3& dimensions, VolumeRAM_Float* target) {
-    tgt::vec3 center = dimensions / 2;
-
-    LINFO("Generating sphere dataset with dimensions: " << dimensions);
-
-    float radius = center.x * 0.8f;
-
-    VRN_FOR_EACH_VOXEL_WITH_PROGRESS(pos, svec3(0,0,0), svec3(dimensions), this) {
-        vec3 vox(static_cast<float>(pos.x),
-                 static_cast<float>(pos.y),
-                 static_cast<float>(pos.z));
-        float r = length(center - vox);
-
-        if (r <= radius)
-            target->voxel(pos) = 150.0;
-        else
-            target->voxel(pos) = 0;
     }
 }
 

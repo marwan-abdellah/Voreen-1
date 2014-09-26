@@ -155,6 +155,9 @@
 #include "voreen/core/datastructures/volume/operators/volumeoperatorsubset.h"
 #include "voreen/core/datastructures/volume/operators/volumeoperatorswapendianness.h"
 #include "voreen/core/datastructures/volume/operators/volumeoperatortranspose.h"
+#include "voreen/core/datastructures/volume/operators/volumeoperatorfft.h"
+#include "voreen/core/datastructures/volume/operators/volumeoperatorfftreal.h"
+#include "voreen/core/datastructures/volume/operators/volumeoperatorfftimaginary.h"
 
 #include "voreen/core/animation/animation.h"
 #include "voreen/core/voreenapplication.h"
@@ -423,6 +426,11 @@ CoreModule::CoreModule(const std::string& modulePath)
     // Instance operator for all scalar types:
     INST_SCALAR_TYPES(VolumeOperatorInvert, VolumeOperatorInvertGeneric)
     //INST_VECTOR_TYPES(NewVolumeOperatorInvert, VolumeOperatorInvertGeneric)
+    
+    // FFT Operation
+    INST_SCALAR_TYPES(VolumeOperatorFFT, VolumeOperatorFFTGeneric)
+    INST_SCALAR_TYPES(VolumeOperatorFFTReal, VolumeOperatorFFTRealGeneric)
+    INST_SCALAR_TYPES(VolumeOperatorFFTImaginary, VolumeOperatorFFTImaginaryGeneric)
 
     INST_SCALAR_TYPES(VolumeOperatorMirrorX, VolumeOperatorMirrorXGeneric)
     INST_VECTOR_TYPES(VolumeOperatorMirrorX, VolumeOperatorMirrorXGeneric)
