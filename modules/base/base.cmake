@@ -115,6 +115,9 @@ SET(MOD_CORE_SOURCES
     ${MOD_DIR}/processors/volume/volumecreatefftspectrum.cpp
     ${MOD_DIR}/processors/volume/volumeconvertfftreal.cpp
     ${MOD_DIR}/processors/volume/volumeconvertfftimaginary.cpp
+    ${MOD_DIR}/processors/volume/volumeinversefft.cpp
+    ${MOD_DIR}/processors/volume/volumeselection.cpp
+
 
     # Volume readers/writers sources
     ${MOD_DIR}/io/analyzevolumereader.cpp
@@ -243,8 +246,8 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/processors/volume/volumecreatefftspectrum.h
     ${MOD_DIR}/processors/volume/volumeconvertfftreal.h
     ${MOD_DIR}/processors/volume/volumeconvertfftimaginary.h
-
-
+    ${MOD_DIR}/processors/volume/volumeinversefft.h
+    ${MOD_DIR}/processors/volume/volumeselection.h
 
     # Volume readers/writers headers
     ${MOD_DIR}/io/analyzevolumereader.h

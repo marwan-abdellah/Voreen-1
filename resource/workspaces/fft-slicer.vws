@@ -11,7 +11,7 @@
             <Processors>
                 <Processor type="SliceViewer" name="SliceViewer" id="ref0">
                     <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-397" y="-216" />
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-367" y="-87" />
                     </MetaData>
                     <Properties>
                         <Property mapKey="boundaryColor" name="boundaryColor">
@@ -39,7 +39,7 @@
                         <Property mapKey="sliceAlignmentProp" name="sliceAlignmentProp" value="xy-plane" />
                         <Property mapKey="sliceCacheSize" name="sliceCacheSize" value="10" />
                         <Property mapKey="sliceExtracionTimeLimit" name="sliceExtracionTimeLimit" value="0" />
-                        <Property mapKey="sliceIndex" name="sliceIndex" value="53" />
+                        <Property mapKey="sliceIndex" name="sliceIndex" value="35" />
                         <Property mapKey="sliceLevelOfDetail" name="sliceLevelOfDetail" value="0" />
                         <Property mapKey="sliceX" name="sliceX" value="-1" />
                         <Property mapKey="sliceY" name="sliceY" value="-1" />
@@ -52,7 +52,7 @@
                                     <value x="0" y="0.34372473" />
                                 </MetaItem>
                             </MetaData>
-                            <TransferFunction type="TransFuncIntensity" alphaMode="1" gammaValue="0.59787232">
+                            <TransferFunction type="TransFuncIntensity" alphaMode="1" gammaValue="5">
                                 <domain x="0" y="0.34372473" />
                                 <threshold x="0" y="1" />
                                 <Keys>
@@ -155,11 +155,11 @@
                 </Processor>
                 <Processor type="Canvas" name="Canvas" id="ref1">
                     <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-397" y="-105" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="false" x="1092" y="358" width="450" height="365" />
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-367" y="23" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="1086" y="184" width="450" height="365" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="1091" y="330" />
+                            <value x="1086" y="184" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
                             <value x="450" y="365" />
@@ -211,7 +211,7 @@
                 </Processor>
                 <Processor type="VolumeFormatConversion" name="VolumeFormatConversion" id="ref3">
                     <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-386" y="-500" />
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-386" y="-496" />
                     </MetaData>
                     <Properties>
                         <Property mapKey="clearCache" name="clearCache" />
@@ -240,7 +240,7 @@
                 </Processor>
                 <Processor type="VolumeInversion" name="VolumeInversion" id="ref4">
                     <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-412" y="-411" />
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-402" y="-406" />
                     </MetaData>
                     <Properties>
                         <Property mapKey="clearCache" name="clearCache" />
@@ -267,11 +267,11 @@
                 </Processor>
                 <Processor type="VolumeConvertFFTReal" name="VolumeConvertFFTReal" id="ref5">
                     <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-427" y="-330" />
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-432" y="-306" />
                     </MetaData>
                     <Properties>
                         <Property mapKey="clearCache" name="clearCache" />
-                        <Property mapKey="enabled" name="enabled" value="false" />
+                        <Property mapKey="enabled" name="enabled" value="true" />
                         <Property mapKey="useCaching" name="useCaching" value="true" />
                     </Properties>
                     <Inports>
@@ -285,6 +285,45 @@
                     </Inports>
                     <Outports>
                         <Port name="volumehandle.output" direction="0" portID="volumehandle.output" guiName="Volume Output" allowMultipleConnections="true" invalidationLevel="1">
+                            <Properties>
+                                <Property mapKey="blockEvents" name="blockEvents" value="false" />
+                            </Properties>
+                        </Port>
+                    </Outports>
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="VolumeCombine" name="VolumeCombine">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-691" y="-153" />
+                    </MetaData>
+                    <Properties>
+                        <Property mapKey="clearCache" name="clearCache" />
+                        <Property mapKey="combineFunction" name="combineFunction" value="max" />
+                        <Property mapKey="enabled" name="enabled" value="true" />
+                        <Property mapKey="factorC" name="factorC" value="0.5" tracking="false" />
+                        <Property mapKey="factorD" name="factorD" value="0.5" tracking="false" />
+                        <Property mapKey="filteringMode" name="filteringMode" value="linear" />
+                        <Property mapKey="referenceVolume" name="referenceVolume" value="first" />
+                        <Property mapKey="useCaching" name="useCaching" value="true" />
+                    </Properties>
+                    <Inports>
+                        <Port name="volume.first" direction="1" portID="volume.first" guiName="Volume1 Input" allowMultipleConnections="false" invalidationLevel="1">
+                            <Properties>
+                                <Property mapKey="textureBorderIntensity" name="textureBorderIntensity" value="0" />
+                                <Property mapKey="textureClampMode_" name="textureClampMode_" value="clamp-to-edge" />
+                                <Property mapKey="textureFilterMode_" name="textureFilterMode_" value="linear" />
+                            </Properties>
+                        </Port>
+                        <Port name="volume.second" direction="1" portID="volume.second" guiName="Volume2 Input" allowMultipleConnections="false" invalidationLevel="1">
+                            <Properties>
+                                <Property mapKey="textureBorderIntensity" name="textureBorderIntensity" value="0" />
+                                <Property mapKey="textureClampMode_" name="textureClampMode_" value="clamp-to-edge" />
+                                <Property mapKey="textureFilterMode_" name="textureFilterMode_" value="linear" />
+                            </Properties>
+                        </Port>
+                    </Inports>
+                    <Outports>
+                        <Port name="outport" direction="0" portID="outport" guiName="Volume Output" allowMultipleConnections="true" invalidationLevel="1">
                             <Properties>
                                 <Property mapKey="blockEvents" name="blockEvents" value="false" />
                             </Properties>

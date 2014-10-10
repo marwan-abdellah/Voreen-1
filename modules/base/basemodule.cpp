@@ -144,6 +144,7 @@
 #include "processors/volume/volumecreatefftspectrum.h"
 #include "processors/volume/volumeconvertfftreal.h"
 #include "processors/volume/volumeconvertfftimaginary.h"
+#include "processors/volume/volumeselection.h"
 
 
 ///
@@ -286,7 +287,7 @@ BaseModule::BaseModule(const std::string& modulePath) : VoreenModule(modulePath)
     registerSerializableType(new VolumeCreateFFTSpectrum());
     registerSerializableType(new VolumeConvertFFTReal());
     registerSerializableType(new VolumeConvertFFTImaginary());
-
+    registerSerializableType(new VolumeSelection());
 
     // volume readers/writers
     registerVolumeReader(new AnalyzeVolumeReader());
