@@ -23,8 +23,8 @@
  *                                                                                 *
  ***********************************************************************************/
 
-#ifndef VRN_VOLUMESELECTION_H
-#define VRN_VOLUMESELECTION_H
+#ifndef VRN_VOLUME3DFFT_H
+#define VRN_VOLUME3DFFT_H
 
 #include "voreen/core/processors/volumeprocessor.h"
 #include "voreen/core/properties/boolproperty.h"
@@ -33,13 +33,13 @@
 
 namespace voreen {
 
-class VRN_CORE_API VolumeSelection : public CachingVolumeProcessor {
+class VRN_CORE_API Volume3DFFT : public CachingVolumeProcessor {
 public:
-    VolumeSelection();
-    ~VolumeSelection();
+    Volume3DFFT();
+    ~Volume3DFFT();
     virtual Processor* create() const;
 
-    virtual std::string getClassName() const      { return "VolumeSelection";     }
+    virtual std::string getClassName() const      { return "Volume3DFFT";     }
     virtual std::string getCategory() const       { return "Volume Processing"; }
     virtual CodeState getCodeState() const        { return CODE_STATE_STABLE;   }
     virtual bool usesExpensiveComputation() const { return true; }
@@ -52,46 +52,23 @@ protected:
     virtual void process();
 
 private:
-    /// Voxel-wise selection item.
-    enum SelectedVolumeItem {
-        FIRST_VOLUME,
-        SECOND_VOLUME
-    };
-    friend class OptionProperty<SelectedVolumeItem>;
+    void copyInputVolumeToOutputVolume(Volume* output, const VolumeBase* input);
+    void fillNullVolume(Volume* output);
+    void computeForwardFFT(Volume* realOutput, Volume* imaginaryOutput, const VolumeBase* input);
 
+     void forceUpdate();
 
-    /**
-     * Copies the input volumes and writes the result to combinedVolume (which is assumed to be already created),
-     * by transforming the input volume's coordinates systems to the coordinates system of the combined volume.
-     */
-    void copyInputToSelectedVolume(Volume* combinedVolume, const VolumeBase* firstVolume,
-        const VolumeBase* secondVolume, SelectedVolumeItem item) const;
-
-    /**
-     * Copies the input volumes and writes the result to combinedVolume (which is assumed to be already created),
-     * without coordinate transformation. This is much faster than the transformation-based combination,
-     * but only possible for volumes that share a common grid in world space.
-     */
-    void copyInputToSelectedVolumeOnCommonGrid(Volume* combinedVolume, const VolumeBase* firstVolume,
-        const VolumeBase* secondVolume, SelectedVolumeItem item) const;
-
-
-    /// Creates a selected (empty) volume from the two input volumes in world space,
-    /// or 0 in case the combined volume could not be created due to bad allocation.
-    Volume* createSelectedVolume(const VolumeBase* refVolume, const VolumeBase* secondVolume) const;
-
-    VolumePort inportFirst_;
-    VolumePort inportSecond_;
-    VolumePort outport_;
+    VolumePort inport_;
+    VolumePort outportFirst_;
+    VolumePort outportSecond_;
 
     BoolProperty enableProcessing_;
-    OptionProperty<SelectedVolumeItem> selectedVolume_;
-    StringOptionProperty filteringMode_;
-
     static const std::string loggerCat_; ///< category used in logging
+
+    bool forceUpdate_;
 };
 
 
 } // namespace
 
-#endif // VRN_VOLUMESELECTION_H
+#endif // VRN_VOLUME3DFFT_H

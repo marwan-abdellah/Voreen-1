@@ -3,6 +3,11 @@
     <Workspace version="2" GlobalDescription="">
         <ProcessorNetwork version="15">
             <MetaData>
+                <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
+                    <values>
+                        <item type="VolumeSelection" ref="ref6" />
+                    </values>
+                </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
                     <value x="-185.17823792" y="207.50469971" />
                 </MetaItem>
@@ -48,10 +53,10 @@
                 <Processor type="Canvas" name="Canvas" id="ref1">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-335" y="380" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="308" y="93" width="350" height="350" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="false" x="347" y="169" width="350" height="350" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="308" y="93" />
+                            <value x="-73" y="-52" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
                             <value x="350" y="350" />
@@ -94,9 +99,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="751" y="346" />
                             </MetaData>
-                            <position x="-0.15868862" y="-0.28781787" z="3.08286357" />
+                            <position x="-2.49252033" y="1.4167912" z="-1.17989111" />
                             <focus x="0" y="0" z="0" />
-                            <upVector x="-0.99801266" y="-0.03189124" z="-0.05434969" />
+                            <upVector x="-0.54503858" y="-0.31019765" z="0.77891612" />
                             <trackball moveCenter="false">
                                 <center x="0" y="0" z="0" />
                             </trackball>
@@ -195,9 +200,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="751" y="346" />
                             </MetaData>
-                            <position x="-0.15868862" y="-0.28781787" z="3.08286357" />
+                            <position x="-2.49252033" y="1.4167912" z="-1.17989111" />
                             <focus x="0" y="0" z="0" />
-                            <upVector x="-0.99801254" y="-0.03189123" z="-0.05434968" />
+                            <upVector x="-0.54503864" y="-0.31019768" z="0.77891624" />
                             <trackball moveCenter="false">
                                 <center x="0" y="0" z="0" />
                             </trackball>
@@ -277,7 +282,7 @@
                 </Processor>
                 <Processor type="VolumeSelection" name="VolumeSelection" id="ref6">
                     <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-400" y="-100" />
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-397" y="-100" />
                     </MetaData>
                     <Properties>
                         <Property mapKey="clearCache" name="clearCache" />
@@ -287,6 +292,7 @@
                         <Property mapKey="factorD" name="factorD" value="0.5" tracking="false" />
                         <Property mapKey="filteringMode" name="filteringMode" value="nearest" />
                         <Property mapKey="referenceVolume" name="referenceVolume" value="first" />
+                        <Property mapKey="selectedVolume" name="selectedVolume" value="first" />
                         <Property mapKey="useCaching" name="useCaching" value="true" />
                     </Properties>
                     <Inports>

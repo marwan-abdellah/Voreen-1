@@ -23,8 +23,8 @@
  *                                                                                 *
  ***********************************************************************************/
 
-#ifndef VRN_VOLUMESELECTION_H
-#define VRN_VOLUMESELECTION_H
+#ifndef VRN_VOLUMESELECTIONANDDUPLICATION_H
+#define VRN_VOLUMESELECTIONANDDUPLICATION_H
 
 #include "voreen/core/processors/volumeprocessor.h"
 #include "voreen/core/properties/boolproperty.h"
@@ -33,13 +33,13 @@
 
 namespace voreen {
 
-class VRN_CORE_API VolumeSelection : public CachingVolumeProcessor {
+class VRN_CORE_API VolumeSelectionAndDuplication : public CachingVolumeProcessor {
 public:
-    VolumeSelection();
-    ~VolumeSelection();
+    VolumeSelectionAndDuplication();
+    ~VolumeSelectionAndDuplication();
     virtual Processor* create() const;
 
-    virtual std::string getClassName() const      { return "VolumeSelection";     }
+    virtual std::string getClassName() const      { return "VolumeSelectionAndDuplication";     }
     virtual std::string getCategory() const       { return "Volume Processing"; }
     virtual CodeState getCodeState() const        { return CODE_STATE_STABLE;   }
     virtual bool usesExpensiveComputation() const { return true; }
@@ -82,7 +82,8 @@ private:
 
     VolumePort inportFirst_;
     VolumePort inportSecond_;
-    VolumePort outport_;
+    VolumePort outportFirst_;
+    VolumePort outportSecond_;
 
     BoolProperty enableProcessing_;
     OptionProperty<SelectedVolumeItem> selectedVolume_;
@@ -94,4 +95,4 @@ private:
 
 } // namespace
 
-#endif // VRN_VOLUMESELECTION_H
+#endif // VRN_VOLUMESELECTIONANDDUPLICATION_H

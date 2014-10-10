@@ -23,7 +23,7 @@
  *                                                                                 *
  ***********************************************************************************/
 
-#include "volumeselection.h"
+#include "volumeselectionandduplication.h"
 
 #include "voreen/core/datastructures/volume/volumeatomic.h"
 #include "voreen/core/datastructures/volume/operators/volumeoperatorresize.h"
@@ -35,20 +35,22 @@ using tgt::vec3;
 
 namespace voreen {
 
-const std::string VolumeSelection::loggerCat_("voreen.VolumeSelection");
+const std::string VolumeSelectionAndDuplication::loggerCat_("voreen.VolumeSelectionAndDuplication");
 
-VolumeSelection::VolumeSelection()
+VolumeSelectionAndDuplication::VolumeSelectionAndDuplication()
     : CachingVolumeProcessor()
     , inportFirst_(Port::INPORT, "volume.first", "Volume1 Input")
     , inportSecond_(Port::INPORT, "volume.second", "Volume2 Input")
-    , outport_(Port::OUTPORT, "outport", "Volume Output", true)
+    , outportFirst_(Port::OUTPORT, "outport.first", "Volume Output", true)
+    , outportSecond_(Port::OUTPORT, "outport.second", "Volume Output", true)
     , enableProcessing_("enabled", "Enable", true)
     , selectedVolume_("selectedVolume", "Selected Volume")
     , filteringMode_("filteringMode", "Filtering")
 {
     addPort(inportFirst_);
     addPort(inportSecond_);
-    addPort(outport_);
+    addPort(outportFirst_);
+    addPort(outportSecond_);
 
     selectedVolume_.addOption("first",  "First",  FIRST_VOLUME);
     selectedVolume_.addOption("second", "Second", SECOND_VOLUME);
@@ -64,13 +66,13 @@ VolumeSelection::VolumeSelection()
     addProperty(selectedVolume_);
 }
 
-VolumeSelection::~VolumeSelection() {}
+VolumeSelectionAndDuplication::~VolumeSelectionAndDuplication() {}
 
-Processor* VolumeSelection::create() const {
-    return new VolumeSelection();
+Processor* VolumeSelectionAndDuplication::create() const {
+    return new VolumeSelectionAndDuplication();
 }
 
-void VolumeSelection::process() {
+void VolumeSelectionAndDuplication::process() {
     // Getting the input volumes.
     tgtAssert(inportFirst_.getData() && inportFirst_.getData()->getRepresentation<VolumeRAM>(), "No input volume");
     tgtAssert(inportSecond_.getData() && inportSecond_.getData()->getRepresentation<VolumeRAM>(), "No input volume");
@@ -84,7 +86,8 @@ void VolumeSelection::process() {
 
     // If not processingm just by-pass the first volume.
     if (!enableProcessing_.get()) {
-        outport_.setData(const_cast<VolumeBase*>(inportFirst_.getData()), false);
+        outportFirst_.setData(const_cast<VolumeBase*>(inportFirst_.getData()), false);
+        outportSecond_.setData(const_cast<VolumeBase*>(inportFirst_.getData()), false);
         return;
     }
 
@@ -135,7 +138,8 @@ void VolumeSelection::process() {
         }
     }
 
-    outport_.setData(selectedVolume);
+    outportFirst_.setData(selectedVolume);
+    outportSecond_.setData(selectedVolume);
 }
 
 inline bool withinRange(const tgt::vec3& pos, const tgt::vec3& llf, const tgt::vec3& urb) {
@@ -143,7 +147,7 @@ inline bool withinRange(const tgt::vec3& pos, const tgt::vec3& llf, const tgt::v
            tgt::hand(tgt::lessThanEqual(   pos, urb));
 }
 
-void VolumeSelection::copyInputToSelectedVolume(Volume* selectedVolume, const VolumeBase* firstVolume,
+void VolumeSelectionAndDuplication::copyInputToSelectedVolume(Volume* selectedVolume, const VolumeBase* firstVolume,
                                    const VolumeBase* secondVolume, SelectedVolumeItem itemSelected) const {
 
     tgtAssert(selectedVolume && firstVolume && secondVolume, "Null pointer passed");
@@ -172,7 +176,7 @@ void VolumeSelection::copyInputToSelectedVolume(Volume* selectedVolume, const Vo
     const VolumeRAM* v2 = secondVolume->getRepresentation<VolumeRAM>();
     VolumeRAM* vc = selectedVolume->getWritableRepresentation<VolumeRAM>();
 
-    VRN_FOR_EACH_VOXEL_WITH_PROGRESS(pos, tgt::ivec3(0), selectedVolume->getDimensions(), const_cast<VolumeSelection*>(this)) {
+    VRN_FOR_EACH_VOXEL_WITH_PROGRESS(pos, tgt::ivec3(0), selectedVolume->getDimensions(), const_cast<VolumeSelectionAndDuplication*>(this)) {
         for (size_t referenceChannel = 0; referenceChannel < selectedVolume->getNumChannels(); ++referenceChannel) {
             size_t otherChannel = (selectedVolume->getNumChannels() == otherVolume->getNumChannels()) ? referenceChannel : 0;
 
@@ -230,7 +234,7 @@ void VolumeSelection::copyInputToSelectedVolume(Volume* selectedVolume, const Vo
 
 
 
-void VolumeSelection::copyInputToSelectedVolumeOnCommonGrid(Volume* selectedVolume, const VolumeBase* firstVolume,
+void VolumeSelectionAndDuplication::copyInputToSelectedVolumeOnCommonGrid(Volume* selectedVolume, const VolumeBase* firstVolume,
                                                const VolumeBase* secondVolume, SelectedVolumeItem itemSelected) const {
     tgtAssert(selectedVolume && firstVolume && secondVolume, "Null pointer passed");
     tgtAssert(selectedVolume->getDimensions() == firstVolume->getDimensions() &&
@@ -243,7 +247,7 @@ void VolumeSelection::copyInputToSelectedVolumeOnCommonGrid(Volume* selectedVolu
     const VolumeRAM* v2 = secondVolume->getRepresentation<VolumeRAM>();
     VolumeRAM* vc = selectedVolume->getWritableRepresentation<VolumeRAM>();
 
-    VRN_FOR_EACH_VOXEL_WITH_PROGRESS(pos, tgt::ivec3(0), selectedVolume->getDimensions(), const_cast<VolumeSelection*>(this)) {
+    VRN_FOR_EACH_VOXEL_WITH_PROGRESS(pos, tgt::ivec3(0), selectedVolume->getDimensions(), const_cast<VolumeSelectionAndDuplication*>(this)) {
         for (size_t referenceChannel = 0; referenceChannel < selectedVolume->getNumChannels(); ++referenceChannel) {
             size_t otherChannel = (selectedVolume->getNumChannels() == otherVolume->getNumChannels()) ? referenceChannel : 0;
             float valFirst = v1->getVoxelNormalized(pos, referenceChannel);
@@ -270,7 +274,7 @@ void VolumeSelection::copyInputToSelectedVolumeOnCommonGrid(Volume* selectedVolu
     } // VRN_FOR_EACH_VOXEL_WITH_PROGRESS
 }
 
-Volume* VolumeSelection::createSelectedVolume(const VolumeBase* refVolume, const VolumeBase* secondVolume) const {
+Volume* VolumeSelectionAndDuplication::createSelectedVolume(const VolumeBase* refVolume, const VolumeBase* secondVolume) const {
     // compute untransformed bounding box of reference volume
     tgt::vec3 refLLF = refVolume->getLLF();  // all components negative
     tgt::vec3 refURB = refVolume->getURB();  // all components positive
